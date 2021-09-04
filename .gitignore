@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# This is important config data, including Discord token and guild IDs, that should not be committed.
+CONFIG.env
+channel-config.db

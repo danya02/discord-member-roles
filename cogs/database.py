@@ -1,6 +1,6 @@
 import peewee as pw
 
-db = peewee.SqliteDatabase('/config.db')
+db = pw.SqliteDatabase('/config.db')
 
 class MyModel(pw.Model):
     class Meta:
