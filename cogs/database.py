@@ -9,8 +9,8 @@ class MyModel(pw.Model):
 class RoleChannel(MyModel):
     guild = pw.IntegerField()
     channel = pw.IntegerField()
-    role_prefix = pw.CharField(null=True)
-    role_suffix = pw.CharField(null=True)
+    role_prefix = pw.CharField()
+    role_suffix = pw.CharField()
     vote_emoji = pw.CharField()
     default_color = pw.IntegerField()
 
