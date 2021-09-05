@@ -20,10 +20,19 @@ class RoleManager(commands.Cog):
 
         await self.ensure_plain_message(message)
 
-        color = None  # TODO: set this based on the message
+        content = message.content
+        color = discord.Color.random(seed=message.content)
+        last_word = content.split(' ')[-1]
+        last_word = last_word.strip('#').lower()
+        if len(last_word) in [3, 6]:
+            if all([i in '0123456789abcdef' for i in last_word]):
+                if len(last_word) == 3: last_word = ''.join([i+i for i in last_word])  # if 3-letter hex, duplicate every letter
+                color = discord.Color(int(last_word, 16))
+                content = ' '.join(message.content.split(' ')[:-1])
+
 
         guild = message.guild
-        role_name = chan.role_prefix + message.content + chan.role_suffix
+        role_name = chan.role_prefix + content + chan.role_suffix
         if len(role_name) > 100:
             allowed_len = 100-len(chan.role_prefix) + len(chan.role_suffix)
             logging.info(f"Got message that was too long, the maximum length of role name is 100 but it was {len(role_name)}")
