@@ -10,6 +10,7 @@ class RoleAssigner(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
+        if payload.user_id == self.bot.user.id: return  # ignore own reactions
         logging.debug(f"Received add-reaction {payload}")
         reaction_role = ReactionRole.get_or_none(message_id=payload.message_id)
         if not reaction_role:
@@ -24,6 +25,7 @@ class RoleAssigner(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload):
+        if payload.user_id == self.bot.user.id: return  # ignore own reactions
         logging.debug(f"Received remove-reaction {payload}")
         reaction_role = ReactionRole.get_or_none(message_id=payload.message_id)
         if not reaction_role:
